@@ -48,6 +48,10 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
     private var locationPermissionGranted = false
 
     private var lastKnownLocation: Location? = null
+//    private lateinit var currentLocation: Location
+//    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val permissionCode = 101
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

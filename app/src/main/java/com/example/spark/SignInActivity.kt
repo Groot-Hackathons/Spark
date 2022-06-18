@@ -24,6 +24,15 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+//        user = firebaseAuth.getCurrentUser();
+//
+//        if(user != null) {
+//
+//            val intent = Intent(this, HomePage::class.java)
+//            startActivity(intent)
+//            finish();
+//        }
+
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
@@ -32,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, SerialNumber::class.java)
+                        val intent = Intent(this, HomePage::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -50,8 +59,8 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
 
         if(firebaseAuth.currentUser != null){
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, HomePage::class.java)
+            startActivity(intent)
         }
     }
 }
