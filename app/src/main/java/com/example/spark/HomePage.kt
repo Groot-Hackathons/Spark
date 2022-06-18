@@ -19,8 +19,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 class HomePage: AppCompatActivity(), OnMapReadyCallback{
 
     private lateinit var binding: HomePageBinding
-    private lateinit var currentLocation: Location
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+//    private lateinit var currentLocation: Location
+//    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
