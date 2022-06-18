@@ -57,7 +57,17 @@ class FullscreenActivity : AppCompatActivity() {
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-
+    private val delayHideTouchListener = View.OnTouchListener { view, motionEvent ->
+        when (motionEvent.action) {
+            MotionEvent.ACTION_DOWN -> if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS)
+            }
+            MotionEvent.ACTION_UP -> view.performClick()
+            else -> {
+            }
+        }
+        false
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,17 +89,10 @@ class FullscreenActivity : AppCompatActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        binding.dummyButton.setOnClickListener {
-            val intent = Intent(this, SerialNumber::class.java)
-            // To pass any data to next activity
-            intent.putExtra("keyIdentifier", "value")
-            // start your next activity
+        binding.dummyButton.setOnClickListener{
+            val intent = Intent(this , SignInActivity::class.java)
             startActivity(intent)
         }
-
-
-
-
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
