@@ -7,21 +7,52 @@
     tools:context=".FirstFragment">
 
     <TextView
+        android:id="@+id/vehicleNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please Enter your vehicle SERIAL NUMBER"
-        app:layout_constraintBottom_toTopOf="@+id/plain_text_input"
+        android:text="Vehicle Number"
+        app:layout_constraintBottom_toTopOf="@+id/vehicleNumber_input"
         tools:layout_editor_absoluteX="-16dp" />
 
     <EditText
-        android:id="@+id/plain_text_input"
+        android:id="@+id/vehicleNumber_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintVertical_bias="0.379"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/vehicle_battery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Enter Vehicle Battery(%)"
+        app:layout_constraintBottom_toTopOf="@+id/vehicle_batteryinput"
+        tools:layout_editor_absoluteX="-27dp" />
+
+    <EditText
+        android:id="@+id/vehicle_batteryinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:gravity="center_vertical"
+        android:inputType="number"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Vehicle"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="598dp" />
 
     <Button
         android:id="@+id/button_first"
