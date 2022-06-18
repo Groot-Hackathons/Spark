@@ -25,6 +25,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="Login"
+            android:theme="@style/Theme.Spark.Fullscreen">
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="Logout"
+            android:theme="@style/Theme.Spark.Fullscreen">
+        </activity>
     </application>
 
 </manifest>

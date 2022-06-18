@@ -2,6 +2,7 @@ package com.example.spark
 
 import androidx.appcompat.app.AppCompatActivity
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -88,7 +89,10 @@ class FullscreenActivity : AppCompatActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        binding.dummyButton.setOnTouchListener(delayHideTouchListener)
+        binding.dummyButton.setOnClickListener{
+            val intent = Intent(this , SignInActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
