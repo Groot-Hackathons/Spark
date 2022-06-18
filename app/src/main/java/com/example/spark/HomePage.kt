@@ -68,10 +68,11 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-//        val mapFragment = supportFragmentManager
-//            .findFragmentById(R.id.map_fragment) as SupportMapFragment?
-//
-//        mapFragment?.getMapAsync(this)
+        val mapFragment = supportFragmentManager.findFragmentById(
+            R.id.map_fragment
+        ) as? SupportMapFragment
+
+        mapFragment?.getMapAsync(this)
 //
 ////        binding
 //
@@ -122,10 +123,6 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
 
     @SuppressLint("MissingPermission")
     private fun getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (locationPermissionGranted) {
                 val locationResult = fusedLocationProviderClient.lastLocation
@@ -152,15 +149,7 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
         }
     }
 
-    /**
-     * Prompts the user for permission to use the device location.
-     */
     private fun getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
@@ -171,9 +160,7 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
         }
     }
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
@@ -192,10 +179,6 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
         updateLocationUI()
     }
 
-    /**
-     * Prompts the user to select the current place from a list of likely places, and shows the
-     * current place on the map - provided the user has granted location permission.
-     */
     @SuppressLint("MissingPermission")
     private fun showCurrentPlace() {
         if (map == null) {
