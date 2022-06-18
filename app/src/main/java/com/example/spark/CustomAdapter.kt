@@ -1,5 +1,7 @@
 package com.example.spark
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +17,12 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
         return ViewHolder(view)
     }
 
-    // binds the list items to a view
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val itemsViewModel = mList[position]
+
+        Log.d("Soe", itemsViewModel.stationName)
 
         holder.stationNameTxt.text = itemsViewModel.stationName
         holder.distanceTxt.text = itemsViewModel.distance
@@ -27,12 +31,10 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
 
     }
 
-    // return the number of the items in the list
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val stationNameTxt: TextView = itemView.findViewById(R.id.station_name_txt)
         val priceTxt: TextView = itemView.findViewById(R.id.price_txt)
