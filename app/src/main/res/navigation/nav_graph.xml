@@ -12,7 +12,7 @@
         />
     <activity
         android:id="@+id/fullscreenActivity"
-        android:name="com.example.spark.FullscreenActivity"
+        android:name="com.example.spark.SplashScreen"
         android:label="activity_fullscreen"
         tools:layout="@layout/activity_fullscreen" />
     <activity
