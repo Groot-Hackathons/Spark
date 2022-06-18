@@ -3,26 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.spark.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.spark.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    app:startDestination="@id/homePage">
+    <activity
+        android:id="@+id/homePage"
+        android:name="com.example.spark.HomePage"
+        android:label="HomePage"
+        tools:layout="@layout/home_page"
+        />
+    <activity
+        android:id="@+id/fullscreenActivity"
+        android:name="com.example.spark.FullscreenActivity"
+        android:label="activity_fullscreen"
+        tools:layout="@layout/activity_fullscreen" />
+    <activity
+        android:id="@+id/serialNumber"
+        android:name="com.example.spark.SerialNumber"
+        android:label="activity_serial_number"
+        tools:layout="@layout/activity_serial_number" />
 </navigation>

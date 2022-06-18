@@ -1,5 +1,6 @@
 package com.example.spark
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -11,26 +12,24 @@ import com.example.spark.databinding.ActivitySerialNumberBinding
 
 class SerialNumber : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivitySerialNumberBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivitySerialNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        binding.serialSubmitBtn.setOnClickListener {
+            var serialNumber = binding.serialNumberTextInput.toString()
+            //TODO: Send serial number to database and link with the e-mail if possible
 
-        val navController = findNavController(R.id.nav_host_fragment_content_serial_number)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+            val intent = Intent(this, HomePage::class.java)
+            intent.putExtra("keyIdentifier", "value")
+            startActivity(intent)
+        }
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_serial_number)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
+
+
 }

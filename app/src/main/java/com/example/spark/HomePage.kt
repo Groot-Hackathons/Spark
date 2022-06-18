@@ -1,12 +1,17 @@
 package com.example.spark
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spark.databinding.HomePageBinding
 
 class HomePage: AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    private lateinit var binding: HomePageBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.home_page)
+//        binding = HomePageBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
     }
 }
