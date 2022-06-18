@@ -73,15 +73,20 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
         ) as? SupportMapFragment
 
         mapFragment?.getMapAsync(this)
-//
-////        binding
-//
+
         val charingStnBtn: Button = findViewById(R.id.charging_station_btn)
 
         charingStnBtn.setOnClickListener {
             val intent = Intent(this, ChargingStations::class.java)
             startActivity(intent)
         }
+
+        val settingsBtn: Button = findViewById(R.id.settings_btn)
+        settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
