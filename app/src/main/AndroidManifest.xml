@@ -32,14 +32,13 @@
             android:label="HomePage"
             android:theme="@style/Theme.Spark.NoActionBar" />
         <activity
-            android:name=".FullscreenActivity"
+            android:name=".SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Spark.Fullscreen">
+            android:theme="@style/Theme.Spark.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -63,6 +62,11 @@
             android:label="ChargingStn"
             android:theme="@style/Theme.Spark.NoActionBar">
         </activity>
+        <activity
+            android:name=".Settings"
+            android:exported="false"
+            android:label="Settings"
+            android:theme="@style/Theme.Spark.NoActionBar" />
     </application>
 
 </manifest>
