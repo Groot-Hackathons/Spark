@@ -57,6 +57,12 @@
             android:label="Logout"
             android:theme="@style/Theme.Spark.Fullscreen">
         </activity>
+        <activity
+            android:name=".ChargingStations"
+            android:exported="false"
+            android:label="ChargingStn"
+            android:theme="@style/Theme.Spark.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
