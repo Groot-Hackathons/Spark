@@ -2,6 +2,7 @@ package com.example.spark
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,10 @@ class SerialNumber : AppCompatActivity() {
             if (email != null) {
                 firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        val user = firebaseAuth.currentUser
+                        val TAG="USER"
+//                        Log.i(TAG, "onPaymentError: $it")
+                        Log.i(TAG, "onPaymentError: $user")
                         val intent = Intent(this, HomePage::class.java)
                         startActivity(intent)
                         //TODO: Store these values in local db as well

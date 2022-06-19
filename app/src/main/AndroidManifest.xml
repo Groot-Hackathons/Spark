@@ -3,8 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.spark">
 
+    <queries>
+        <!-- List of apps which you want to support for Intent pay -->
+        <package android:name="com.phonepe.app" />
+        <!--
+             Specific intents you query for,
+             eg: for a custom share UI
+        -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+        </intent>
+    </queries>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:windowSoftInputMode="adjustResize"
         android:allowBackup="true"
@@ -16,7 +30,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Spark"
         tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Spark.NoActionBar" />
 
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_TbZG9ThnEnyf7w" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDrxdnhR8iFJqf7j1WpetHmOXql1EyXpyE" />
@@ -47,8 +92,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="Login"
-            android:theme="@style/Theme.Spark.Fullscreen">
-        </activity>
+            android:theme="@style/Theme.Spark.Fullscreen"/>
         <activity
             android:name=".SignUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
