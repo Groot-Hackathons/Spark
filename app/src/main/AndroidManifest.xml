@@ -50,7 +50,7 @@
             android:name="com.razorpay.CheckoutActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@style/CheckoutTheme">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <data
@@ -92,7 +92,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="Login"
-            android:theme="@style/Theme.Spark.Fullscreen">
+            android:theme="@style/Theme.Spark.Fullscreen"/>
         <activity
             android:name=".SignUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
