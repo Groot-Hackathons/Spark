@@ -78,6 +78,10 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
 
         charingStnBtn.setOnClickListener {
             val intent = Intent(this, ChargingStations::class.java)
+            if(lastKnownLocation != null){
+                intent.putExtra("Latitude", lastKnownLocation!!.latitude.toString())
+                intent.putExtra("Longitude", lastKnownLocation!!.longitude.toString())
+            }
             startActivity(intent)
         }
 
@@ -182,55 +186,6 @@ class HomePage: AppCompatActivity(), OnMapReadyCallback{
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
         updateLocationUI()
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun showCurrentPlace() {
-        if (map == null) {
-            return
-        }
-        if (locationPermissionGranted) {
-            // Use fields to define the data types to return.
-//            val placeFields = listOf(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
-
-            // Use the builder to create a FindCurrentPlaceRequest.
-//            val request = FindCurrentPlaceRequest.newInstance(placeFields)
-
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
-//            val placeResult = placesClient.findCurrentPlace(request)
-//            placeResult.addOnCompleteListener { task ->
-//                if (task.isSuccessful && task.result != null) {
-//                    val likelyPlaces = task.result
-//
-//                    // Set the count, handling cases where less than 5 entries are returned.
-//                    val count = if (likelyPlaces != null && likelyPlaces.placeLikelihoods.size < M_MAX_ENTRIES) {
-//                        likelyPlaces.placeLikelihoods.size
-//                    } else {
-//                        M_MAX_ENTRIES
-//                    }
-//
-//
-//                    // Show a dialog offering the user the list of likely places, and add a
-//                    // marker at the selected place.
-////                    openPlacesDialog()
-//                } else {
-//                    Log.e(TAG, "Exception: %s", task.exception)
-//                }
-//            }
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.")
-
-            // Add a default marker, because the user hasn't selected a place.
-//            map?.addMarker(MarkerOptions()
-//                .title(getString(R.string.default_info_title))
-//                .position(defaultLocation)
-//                .snippet(getString(R.string.default_info_snippet)))
-
-            // Prompt the user for permission.
-            getLocationPermission()
-        }
     }
 
     /**

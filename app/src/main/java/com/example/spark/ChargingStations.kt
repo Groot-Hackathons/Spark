@@ -1,11 +1,14 @@
 package com.example.spark
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,9 +22,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.json.JSONObject
 
 
 class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
@@ -35,6 +40,8 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var recyclerView: RecyclerView
 
+    private var yourCarLocation: LatLng = LatLng(12.88, 77.49)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ChargingStationBinding.inflate(layoutInflater)
@@ -42,28 +49,22 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
 
         recyclerView = binding.chargingRecyclerView
 
-
-
-//        for (i in 1..20) {
-//            data.add(ItemsViewModel("Station $i", "Rs 500/-", "-- KM", "4.2"))
-//        }
-
-//        val adapter = CustomAdapter(data)
-//
-//        recyclerView.adapter = adapter
-
         var linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
+
+
         val mapFragment = supportFragmentManager.findFragmentById(
             R.id.map_fragment_charging
         ) as? SupportMapFragment
 
-        places.add(LatLng(12.883295, 77.490052))
-        places.add(LatLng(12.88, 55.77))
         mapFragment?.getMapAsync { googleMap ->
             getAllStations(googleMap)
         }
-
+        var intent: Intent = intent
+        yourCarLocation = LatLng(
+            intent.getStringExtra("Latitude")?.toDouble() ?: 12.883295,
+            intent.getStringExtra("Longitude")?.toDouble() ?: 77.490052
+        )
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -91,16 +92,25 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                     Log.d("TAG", "${document.id} => ${document.data}")
                     println("Data is" + document.data)
                     stations.add(document.data)
+                    var pt: GeoPoint = document.data.get("location") as GeoPoint
+                    var place = LatLng(pt.latitude, pt.longitude)
+                    val distance = FloatArray(1)
+                    Location.distanceBetween(
+                        yourCarLocation.latitude,
+                        yourCarLocation.longitude,
+                        place.latitude,
+                        place.longitude,
+                        distance
+                    )
                     data.add(
                         ItemsViewModel(
                             document.data.get("name").toString(),
                             document.data.get("price").toString(),
-                            "-- KM",
+                            "%.2f".format(distance[0]/1000),
                             document.data.get("rating").toString()
                         )
                     )
-                    var pt: GeoPoint = document.data.get("location") as GeoPoint
-                    var place = LatLng(pt.latitude, pt.longitude)
+
                     var _bitmap = resizeMapIcons("charger", 100, 100)
                     if (document.data.get("type") == "HOME"){
                         _bitmap = resizeMapIcons("home_charger", 100, 100)
@@ -116,7 +126,17 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                 val adapter = CustomAdapter(data)
 
                 recyclerView.adapter = adapter
-                println("Stations is$stations")
+
+                var _bitmap = resizeMapIcons("car_top", 100, 50)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .title("Your Car")
+                        .icon(BitmapDescriptorFactory.fromBitmap(_bitmap))
+                        .position(yourCarLocation)
+                )
+
+                builder.include(yourCarLocation)
+
                 val bounds = builder.build()
                 val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
                 googleMap.animateCamera(cu)
@@ -132,20 +152,5 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
         // [END get_all_users]
     }
 
-    private fun addMarkers(googleMap: GoogleMap, data: ArrayList<LatLng>) {
-        data.forEach { place ->
-            val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .title("Hello")
-                    .position(place)
-            )
-            builder.include(place)
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(place))
-//            googleMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f))
-        }
-        val bounds = builder.build()
-        val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
-        googleMap.animateCamera(cu)
-    }
 
 }

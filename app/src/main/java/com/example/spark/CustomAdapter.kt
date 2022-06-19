@@ -1,12 +1,20 @@
 package com.example.spark
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.razorpay.Checkout
+import org.json.JSONObject
 
 class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -22,12 +30,17 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
 
         val itemsViewModel = mList[position]
 
-        Log.d("Soe", itemsViewModel.stationName)
-
         holder.stationNameTxt.text = itemsViewModel.stationName
-        holder.distanceTxt.text = itemsViewModel.distance
+        holder.distanceTxt.text = "~ " + itemsViewModel.distance + " KM"
         holder.ratingTxt.text = "⭐ ${itemsViewModel.ratings}"
         holder.priceTxt.text = "₹ ${itemsViewModel.price}/-"
+
+        holder.itemView.setOnClickListener {
+            var context = holder.stationNameTxt.context
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra("Amount", itemsViewModel.price.toInt())
+            context.startActivity(intent)
+        }
 
     }
 
