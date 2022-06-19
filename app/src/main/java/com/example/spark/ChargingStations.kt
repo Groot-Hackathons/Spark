@@ -88,7 +88,6 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
         db.collection("chargingStation")
             .get()
             .addOnSuccessListener { result ->
-                Log.d("TAG", "Hello Kitty")
                 for (document in result) {
                     Log.d("TAG", "${document.id} => ${document.data}")
                     println("Data is" + document.data)

@@ -10,7 +10,7 @@
     <ProgressBar
         android:id="@+id/progressBar"
         android:scaleY="3"
-        android:progressTint="@color/light_blue_900"
+        android:progressTint="@color/green"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,14 +68,35 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic"
         android:contentDescription="Car Logo" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vehicle Health Status: Good"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        tools:layout_editor_absoluteX="15dp" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="Nearest Charging Station: 2 km "
+        android:textSize="20dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        tools:layout_editor_absoluteX="15dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="15dp">
 
 
 
@@ -83,11 +104,11 @@
             android:id="@+id/charging_station_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/light_blue_900"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/light_blue_900"
             android:text="⚡"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,13 +116,13 @@
 
         <Button
             android:id="@+id/store_btn"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/light_blue_900"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/light_blue_900"
             android:text="🛍️"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,10 +133,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/light_blue_900"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="⚙️"
-            android:backgroundTint="@color/light_blue_900"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
