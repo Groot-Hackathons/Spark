@@ -97,7 +97,7 @@
             android:name=".SignUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
-            android:label="Logout"
+            android:label="SignUp"
             android:theme="@style/Theme.Spark.Fullscreen">
         </activity>
         <activity
