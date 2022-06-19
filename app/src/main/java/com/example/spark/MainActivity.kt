@@ -18,27 +18,7 @@ class MainActivity : AppCompatActivity(), PaymentResultListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-//        val amountEditText = findViewById<TextInputEditText>(R.id.amount)
-        val process = findViewById<MaterialButton>(R.id.process_payment)
-
-
-
-        process.setOnClickListener {
-
-//            val amount = amountEditText.text.toString().trim()
-            val amount = "10"
-
-            if (amount.isEmpty()) return@setOnClickListener
-
-
-
-            startPayment(amount.toInt())
-
-        }
-
-
+        startPayment(intent.getIntExtra("Amount", 10))
     }
 
     private fun startPayment(amount: Int) {

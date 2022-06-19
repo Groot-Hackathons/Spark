@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +22,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.json.JSONObject
 
 
 class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
@@ -46,9 +49,10 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
 
         recyclerView = binding.chargingRecyclerView
 
-
         var linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
+
+
         val mapFragment = supportFragmentManager.findFragmentById(
             R.id.map_fragment_charging
         ) as? SupportMapFragment
@@ -136,20 +140,5 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
         // [END get_all_users]
     }
 
-    private fun addMarkers(googleMap: GoogleMap, data: ArrayList<LatLng>) {
-        data.forEach { place ->
-            val marker = googleMap.addMarker(
-                MarkerOptions()
-                    .title("Hello")
-                    .position(place)
-            )
-            builder.include(place)
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(place))
-//            googleMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f))
-        }
-        val bounds = builder.build()
-        val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
-        googleMap.animateCamera(cu)
-    }
 
 }
