@@ -93,16 +93,25 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                     Log.d("TAG", "${document.id} => ${document.data}")
                     println("Data is" + document.data)
                     stations.add(document.data)
+                    var pt: GeoPoint = document.data.get("location") as GeoPoint
+                    var place = LatLng(pt.latitude, pt.longitude)
+                    val distance = FloatArray(1)
+                    Location.distanceBetween(
+                        yourCarLocation.latitude,
+                        yourCarLocation.longitude,
+                        place.latitude,
+                        place.longitude,
+                        distance
+                    )
                     data.add(
                         ItemsViewModel(
                             document.data.get("name").toString(),
                             document.data.get("price").toString(),
-                            "-- KM",
+                            "%.2f".format(distance[0]/1000),
                             document.data.get("rating").toString()
                         )
                     )
-                    var pt: GeoPoint = document.data.get("location") as GeoPoint
-                    var place = LatLng(pt.latitude, pt.longitude)
+
                     var _bitmap = resizeMapIcons("charger", 100, 100)
                     if (document.data.get("type") == "HOME"){
                         _bitmap = resizeMapIcons("home_charger", 100, 100)
