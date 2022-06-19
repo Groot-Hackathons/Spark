@@ -127,7 +127,17 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                 val adapter = CustomAdapter(data)
 
                 recyclerView.adapter = adapter
-                println("Stations is$stations")
+
+                var _bitmap = resizeMapIcons("car_top", 100, 50)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .title("Your Car")
+                        .icon(BitmapDescriptorFactory.fromBitmap(_bitmap))
+                        .position(yourCarLocation)
+                )
+
+                builder.include(yourCarLocation)
+
                 val bounds = builder.build()
                 val cu = CameraUpdateFactory.newLatLngBounds(bounds, 100)
                 googleMap.animateCamera(cu)
@@ -136,13 +146,7 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                 Log.w("TAG", "Error getting documents.", exception)
             }
 
-        var _bitmap = resizeMapIcons("car_top", 100, 50)
-        googleMap.addMarker(
-            MarkerOptions()
-                .title("Your Car")
-                .icon(BitmapDescriptorFactory.fromBitmap(_bitmap))
-                .position(yourCarLocation)
-        )
+
 
 //        addMarkers(googleMap, places)
         return stations
