@@ -27,7 +27,7 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
         holder.stationNameTxt.text = itemsViewModel.stationName
         holder.distanceTxt.text = itemsViewModel.distance
         holder.ratingTxt.text = "⭐ ${itemsViewModel.ratings}"
-        holder.priceTxt.text = itemsViewModel.price
+        holder.priceTxt.text = "₹ ${itemsViewModel.price}/-"
 
     }
 

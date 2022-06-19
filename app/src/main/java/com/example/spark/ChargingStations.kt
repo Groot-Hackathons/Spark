@@ -1,8 +1,13 @@
 package com.example.spark
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spark.databinding.ChargingStationBinding
@@ -10,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
@@ -64,9 +70,20 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
         TODO("Not yet implemented")
     }
 
+    private fun resizeMapIcons(iconName: String?, width: Int, height: Int): Bitmap {
+        val imageBitmap = BitmapFactory.decodeResource(
+            resources, resources.getIdentifier(
+                iconName, "drawable",
+                packageName
+            )
+        )
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false)
+    }
+
     private fun getAllStations(googleMap: GoogleMap): ArrayList<MutableMap<String, Any>> {
         println("Inside GET method")
         var stations = ArrayList<MutableMap<String,Any>>()
+
         db.collection("chargingStation")
             .get()
             .addOnSuccessListener { result ->
@@ -85,9 +102,14 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                     )
                     var pt: GeoPoint = document.data.get("location") as GeoPoint
                     var place = LatLng(pt.latitude, pt.longitude)
+                    var _bitmap = resizeMapIcons("charger", 100, 100)
+                    if (document.data.get("type") == "HOME"){
+                        _bitmap = resizeMapIcons("home_charger", 100, 100)
+                    }
                     googleMap.addMarker(
                         MarkerOptions()
-                            .title("Hello")
+                            .title(document.data.get("name").toString())
+                            .icon(BitmapDescriptorFactory.fromBitmap(_bitmap))
                             .position(place)
                     )
                     builder.include(place)
