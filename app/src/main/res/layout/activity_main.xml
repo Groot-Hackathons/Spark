@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Pay using RazorPay"
+        android:text="Try Payment again?"
         android:textAllCaps="false" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.spark
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -15,10 +16,20 @@ import com.razorpay.PaymentResultListener
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), PaymentResultListener {
+
+    var amt = 10
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startPayment(intent.getIntExtra("Amount", 10))
+        amt = intent.getIntExtra("Amount", 10)
+        startPayment(amt)
+
+        var button: Button = findViewById(R.id.process_payment)
+        button.setOnClickListener{
+            startPayment(amt)
+        }
+
     }
 
     private fun startPayment(amount: Int) {
