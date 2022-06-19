@@ -1,9 +1,11 @@
 package com.example.spark
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,8 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var recyclerView: RecyclerView
 
+    private var yourCarLocation: LatLng = LatLng(12.88, 77.49)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ChargingStationBinding.inflate(layoutInflater)
@@ -43,27 +47,20 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
         recyclerView = binding.chargingRecyclerView
 
 
-
-//        for (i in 1..20) {
-//            data.add(ItemsViewModel("Station $i", "Rs 500/-", "-- KM", "4.2"))
-//        }
-
-//        val adapter = CustomAdapter(data)
-//
-//        recyclerView.adapter = adapter
-
         var linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         val mapFragment = supportFragmentManager.findFragmentById(
             R.id.map_fragment_charging
         ) as? SupportMapFragment
 
-        places.add(LatLng(12.883295, 77.490052))
-        places.add(LatLng(12.88, 55.77))
         mapFragment?.getMapAsync { googleMap ->
             getAllStations(googleMap)
         }
-
+        var intent: Intent = intent
+        yourCarLocation = LatLng(
+            intent.getStringExtra("Latitude")?.toDouble() ?: 12.883295,
+            intent.getStringExtra("Longitude")?.toDouble() ?: 77.490052
+        )
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -126,7 +123,13 @@ class ChargingStations: AppCompatActivity(), OnMapReadyCallback {
                 Log.w("TAG", "Error getting documents.", exception)
             }
 
-
+        var _bitmap = resizeMapIcons("car_top", 100, 50)
+        googleMap.addMarker(
+            MarkerOptions()
+                .title("Your Car")
+                .icon(BitmapDescriptorFactory.fromBitmap(_bitmap))
+                .position(yourCarLocation)
+        )
 
 //        addMarkers(googleMap, places)
         return stations

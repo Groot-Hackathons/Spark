@@ -15,7 +15,6 @@
             android:id="@+id/station_name_txt"
             android:text="Station Name"
             android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
